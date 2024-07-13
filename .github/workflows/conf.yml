@@ -20,7 +20,7 @@ jobs:
 
       - name: Run Colab notebook
         run: |
-          jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute test_Auto.ipynb
+          jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute ../../test_Auto.ipynb
 
       - name: Commit and push if changes
         env:
