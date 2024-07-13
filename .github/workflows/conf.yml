@@ -20,7 +20,6 @@ jobs:
 
       - name: Run Colab notebook
         run: |
-          jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute test_Auto.ipynb
           jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 test_Auto.ipynb
 
       - name: Commit and push if changes
@@ -29,6 +28,6 @@ jobs:
         run: |
           git config --global user.name 'vanquy03'
           git config --global user.email 'vanquy03@gmail.com'
-          git add .
+          git add . 
           git commit -m "Auto-run Colab notebook" || echo "No changes to commit"
-          git push || echo "No changes to push"
+          git push https://vanquy03:${{ secrets.GH_PAT }}@github.com/QuyHoang7703/Test_connect_with_Colab.git || echo "No changes to push"
