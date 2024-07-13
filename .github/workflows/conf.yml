@@ -2,7 +2,7 @@ name: Daily Colab Run
 
 on:
   schedule:
-    - cron: "59 6 * * *"  # Chạy mỗi ngày vào lúc 03:40 UTC
+    - cron: "18 7 * * *"  # Chạy mỗi ngày vào lúc 03:40 UTC
   push:
   workflow_dispatch:
 
@@ -21,10 +21,11 @@ jobs:
       - name: Run Colab notebook
         run: |
           jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute test_Auto.ipynb
+          jupyter nbconvert --to notebook --inplace --execute --ExecutePreprocessor.timeout=600 test_Auto.ipynb
 
       - name: Commit and push if changes
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          GH_PAT: ${{ secrets.GH_PAT }}
         run: |
           git config --global user.name 'vanquy03'
           git config --global user.email 'vanquy03@gmail.com'
