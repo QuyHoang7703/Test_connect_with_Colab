@@ -2,7 +2,9 @@ name: Daily Colab Run
 
 on:
   schedule:
-    - cron: "40 3 * * *"  # Chạy mỗi ngày vào lúc 00:00 UTC
+    - cron: "40 3 * * *"  # Chạy mỗi ngày vào lúc 03:40 UTC
+  push:
+  workflow_dispatch:
 
 jobs:
   run_colab:
@@ -18,14 +20,14 @@ jobs:
 
       - name: Run Colab notebook
         run: |
-          jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute ../../test_Auto.ipynb
+          jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute test_Auto.ipynb
 
       - name: Commit and push if changes
-	env:
+        env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
         run: |
           git config --global user.name 'vanquy03'
           git config --global user.email 'vanquy03@gmail.com'
           git add .
-          git commit -m "Auto-run Colab notebook"
-          git push
+          git commit -m "Auto-run Colab notebook" || echo "No changes to commit"
+          git push || echo "No changes to push"
