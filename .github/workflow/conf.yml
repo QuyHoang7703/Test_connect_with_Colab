@@ -1,0 +1,29 @@
+name: Daily Colab Run
+
+on:
+  schedule:
+    - cron: "0 4 * * *"  # Chạy mỗi ngày vào lúc 00:00 UTC
+
+jobs:
+  run_colab:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install dependencies
+        run: |
+          pip install -q -U pip
+          pip install -q jupyterlab
+
+      - name: Run Colab notebook
+        run: |
+          jupyter nbconvert --ExecutePreprocessor.timeout=600 --to notebook --execute ../../test_Auto.ipynb
+
+      - name: Commit and push if changes
+        run: |
+          git config --global user.name 'vanquy03'
+          git config --global user.email 'vanquy03@gmail.com'
+          git add .
+          git commit -m "Auto-run Colab notebook"
+          git push
