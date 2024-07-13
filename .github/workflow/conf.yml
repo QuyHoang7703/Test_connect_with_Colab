@@ -2,7 +2,7 @@ name: Daily Colab Run
 
 on:
   schedule:
-    - cron: "0 4 * * *"  # Chạy mỗi ngày vào lúc 00:00 UTC
+    - cron: "40 3 * * *"  # Chạy mỗi ngày vào lúc 00:00 UTC
 
 jobs:
   run_colab:
