@@ -2,7 +2,7 @@ name: Daily Colab Run
 
 on:
   schedule:
-    - cron: "40 3 * * *"  # Chạy mỗi ngày vào lúc 03:40 UTC
+    - cron: "25 4 * * *"  # Chạy mỗi ngày vào lúc 03:40 UTC
   push:
   workflow_dispatch:
 
